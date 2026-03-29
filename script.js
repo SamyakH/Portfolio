@@ -1,61 +1,63 @@
 // ================= Data =================
+// ⚠️ EDIT THIS SECTION WITH YOUR REAL INFORMATION ⚠️
 const data = {
-  name: "Your Name",
-  title: "Full Stack Developer",
-  summary: "I build responsive, accessible web applications with clean UI/UX.",
+  name: "Samyak Jain",  // Your full name
+  title: "Web Developer",  // Your job title
+  summary: "Highly motivated and detail-oriented web developer with a passion for building responsive and user-friendly applications.",  // Your professional summary
+  
+  // ⚠️ ADD YOUR SKILLS HERE ⚠️
+  // Each skill needs: id, name, icon (from devicon), and level (Advanced/Intermediate/Beginner)
   skills: [
-    { id: "s1", name: "React", icon: "devicon-react-original colored", level: "Advanced" },
-    { id: "s2", name: "Node.js", icon: "devicon-nodejs-plain colored", level: "Intermediate" },
-    { id: "s3", name: "PostgreSQL", icon: "devicon-postgresql-plain colored", level: "Intermediate" },
+    { id: "s1", name: "Python", icon: "devicon-python-plain colored", level: "Advanced" },
+    { id: "s2", name: "SQL", icon: "devicon-azuresqldatabase-plain colored", level: "Intermediate" },
+    { id: "s3", name: "MongoDB", icon: "devicon-mongodb-plain colored", level: "Intermediate" },
     { id: "s4", name: "HTML5", icon: "devicon-html5-plain colored", level: "Advanced" },
     { id: "s5", name: "CSS3", icon: "devicon-css3-plain colored", level: "Advanced" },
-
-    // Tools so the Tools category shows up nicely
-    { id: "s6", name: "Git", icon: "devicon-git-plain colored", level: "Advanced" },
-    { id: "s7", name: "Docker", icon: "devicon-docker-plain colored", level: "Intermediate" }
+    { id: "s6", name: "JavaScript", icon: "devicon-javascript-plain colored", level: "Intermediate" },
+    { id: "s7", name: "Git", icon: "devicon-git-plain colored", level: "Advanced" },
+    { id: "s8", name: "Excel", icon: "devicon-google-plain colored", level: "Advanced" }
   ],
+  
+  // ⚠️ ADD YOUR PROJECTS HERE ⚠️
+  // Each project needs: id, name, description, image, tech (array of skill ids), link, challenge, solution, relatedExperience
   projects: [
     {
       id: "p1",
       name: "Portfolio Website",
-      description: "Personal portfolio built with HTML, CSS, and JS.",
-      image: "https://placehold.co/800x500",
-      tech: ["s4", "s5", "s1"],
-      link: "https://github.com/yourusername/portfolio",
+      description: "Personal portfolio built with HTML, CSS, and JavaScript.",
+      image: "https://placehold.co/800x500",  // Replace with your project screenshot
+      tech: ["s4", "s5", "s6"],
+      link: "https://github.com/SamR202/Portfolio",
       challenge: "Designing a personal site that looks professional and loads quickly.",
       solution: "Built a lightweight site using vanilla JS and CSS optimizations for speed.",
       relatedExperience: "Applied design principles and frontend performance best practices."
     },
-    {
-      id: "p2",
-      name: "Blog CMS",
-      description: "A full-featured blog CMS with admin panel and markdown editing.",
-      image: "https://placehold.co/800x500",
-      tech: ["s2", "s3"],
-      link: "https://github.com/yourusername/blogcms",
-      challenge: "Needed flexible content management while ensuring database security.",
-      solution: "Implemented role-based auth, markdown editor, and optimized queries.",
-      relatedExperience: "Similar tasks in backend dev role at Dev Labs."
-    },
-    {
-      id: "p3",
-      name: "E-commerce Frontend",
-      description: "Modern storefront with cart, filters, and checkout UI.",
-      image: "https://placehold.co/800x500",
-      tech: ["s1", "s5"],
-      link: "https://github.com/yourusername/ecommerce-ui",
-      challenge: "Build a responsive storefront that can handle many products.",
-      solution: "Used componentized UI with lazy loading and dynamic filters.",
-      relatedExperience: "Related to frontend work at Tech Co."
-    }
+    // ➕ ADD MORE PROJECTS HERE
   ],
+  
   resume: {
     experience: [
-      { role: "Frontend Developer", company: "Tech Co", years: "2022–Present", description: "Built accessible, performant React apps." },
-      { role: "Backend Developer", company: "Dev Labs", years: "2020–2022", description: "Designed Node.js APIs, optimized PostgreSQL queries." }
+      { 
+        role: "Data Analyst Intern", 
+        company: "NoBroker", 
+        years: "June 2025 - July 2025", 
+        description: "Worked on real datasets related to property trends, cleaning and analyzing data to support business insights. Gained practical experience with SQL, Python, and visualization tools while creating reports and dashboards." 
+      }
+      // ➕ ADD MORE EXPERIENCE HERE
     ],
     education: [
-      { degree: "BSc Computer Science", school: "University X", years: "2016–2020", description: "Graduated with honors. Focus on software engineering." }
+      { 
+        degree: "Master of Science in Computer Science", 
+        school: "SRM NCR", 
+        years: "Currently Pursuing", 
+        description: "" 
+      },
+      { 
+        degree: "Bachelor of Science in Computer Science", 
+        school: "Chaudhary Charan Singh University", 
+        years: "Graduated 2023", 
+        description: "" 
+      }
     ]
   }
 };
@@ -383,10 +385,10 @@ function loadSkills() {
   if (!list) return;
 
   const categories = {
-    "Frontend": ["s1", "s4", "s5"],
-    "Backend": ["s2"],
+    "Programming": ["s1", "s2", "s6"],
+    "Frontend": ["s4", "s5", "s6"],
     "Database": ["s3"],
-    "Tools": ["s6", "s7"]
+    "Tools": ["s7", "s8"]
   };
 
   list.innerHTML = "";
@@ -467,7 +469,7 @@ function initContactForm() {
       const message = form.querySelector("[name=message]").value;
       const subject = `New Message from ${name}`;
       const body = `${message}\n\nFrom: ${name} (${email})`;
-      window.location.href = `mailto:you@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:samyakj1978@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   }
 

@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body onload="initPageChrome(); initContactForm();">
   <!-- ===== Header ===== -->
   <header class="header">
-    <div class="logo">Contact Me</div>
+    <div class="logo">Samyak Jain</div>
     <nav>
       <a href="index.html">Home</a>
       <a href="projects.html">Projects</a>
@@ -32,15 +32,15 @@
       <!-- Contact Form -->
       <div class="contact-card">
         <h3><i class="fas fa-paper-plane"></i> Send a Message</h3>
-        <form>
+        <form id="contact-form">
           <label for="name">Name</label>
-          <input type="text" id="name" placeholder="Your name" required>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
 
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="you@example.com" required>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
 
           <label for="message">Message</label>
-          <textarea id="message" placeholder="Tell me about your project..." required></textarea>
+          <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
 
           <div class="form-buttons">
             <button type="submit" class="btn">Send Message</button>
@@ -52,9 +52,9 @@
       <!-- Contact Info -->
       <div class="contact-card">
         <h3><i class="fas fa-address-card"></i> Get in Touch</h3>
-        <p><i class="fas fa-envelope"></i> samyakj1978@gmail.com
+        <p><i class="fas fa-envelope"></i> <span id="email-link">samyakj1978@gmail.com</span>
           
-          <button id="copy-email" class="copy-btn" title="Copy Email">
+          <button id="copy-email" class="copy-btn" data-email="samyakj1978@gmail.com" title="Copy Email">
             <i class="fas fa-copy"></i>
           </button>
         </p>
@@ -74,17 +74,8 @@
   </main>
 
   <!-- ===== Footer ===== -->
-  <footer class="footer">
-    <p>© 2025 Your Name. All rights reserved.</p>
-  </footer>
+  <footer class="footer">© <span id="year"></span> Samyak Jain</footer>
 
   <script src="script.js"></script>
-  <script>
-    // Copy email to clipboard
-    document.getElementById("copy-email").addEventListener("click", () => {
-      navigator.clipboard.writeText("you@example.com");
-      alert("Email copied to clipboard!");
-    });
-  </script>
 </body>
 </html>
