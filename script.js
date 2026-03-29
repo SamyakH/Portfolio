@@ -1,4 +1,4 @@
-const PORTFOLIO_DATA_VERSION = "2026-03-29-v4";
+const PORTFOLIO_DATA_VERSION = "2026-03-29-v6";
 
 const defaultData = {
   version: PORTFOLIO_DATA_VERSION,
@@ -20,9 +20,9 @@ const defaultData = {
       name: "Download Sorter Extension",
       description:
         "A browser extension that organizes downloads by creating folders based on the source domain and download date, then routes files into the right location automatically.",
-      image: "https://placehold.co/800x500/0f172a/f8fafc?text=Download+Sorter",
+      image: "assets/project-download-sorter.svg",
       tech: ["s3", "s5", "s9"],
-      link: "#",
+      link: "https://github.com/SamyakH/SmartDownloadSorter.v3.2",
       challenge:
         "Ensuring downloads were grouped consistently without slowing down the workflow or creating confusing folder structures.",
       solution:
@@ -35,9 +35,9 @@ const defaultData = {
       name: "Auto Translate Browser Extension",
       description:
         "A Chrome extension that automatically translates foreign-language web pages, removes common translation blockers, enables text selection on restricted sites, and remembers processed domains for faster reuse.",
-      image: "https://placehold.co/800x500/1d4ed8/f8fafc?text=Auto+Translate",
+      image: "assets/project-auto-translate.svg",
       tech: ["s1", "s2", "s3"],
-      link: "#",
+      link: "https://github.com/SamyakH/Auto-Translate",
       challenge:
         "Handling a range of website restrictions while keeping translation behavior reliable across repeat visits.",
       solution:
@@ -50,9 +50,9 @@ const defaultData = {
       name: "Travel Agency Website",
       description:
         "A modern, secure, and high-performance travel agency website built with Next.js 16, React 19, and Supabase for luxury travel brands and tour operators.",
-      image: "https://placehold.co/800x500/14532d/f8fafc?text=Travel+Agency",
+      image: "assets/project-travel-site.svg",
       tech: ["s2", "s4", "s5", "s9"],
-      link: "#",
+      link: "https://github.com/SamyakH/my-travel-site",
       challenge:
         "Creating a polished travel experience that balances performance, security, and a premium visual presentation.",
       solution:
@@ -65,9 +65,9 @@ const defaultData = {
       name: "CashChecker",
       description:
         "A local JSON-backed finance tracker with recurring income and expense automation, built around a modular app structure with navigator, pages, services, and models.",
-      image: "https://placehold.co/800x500/7c2d12/f8fafc?text=CashChecker",
+      image: "assets/project-cashchecker.svg",
       tech: ["s3", "s5", "s9"],
-      link: "#",
+      link: "https://github.com/SamyakH/CashChecker",
       challenge:
         "Keeping personal finance flows simple while supporting recurring transactions and a modular code structure.",
       solution:
@@ -427,15 +427,25 @@ function projectCardHTML(p, dataObj = null) {
     })
     .join(" ");
 
+  const repoLink =
+    p.link && p.link !== "#"
+      ? `<a href="${esc(p.link)}" target="_blank" rel="noopener" class="btn small outline project-action">GitHub Repo</a>`
+      : "";
+
   return `
-  <a href="project.html?id=${encodeURIComponent(p.id)}" class="card project-card" aria-label="Open ${esc(p.name)} details">
+  <article class="card project-card" aria-labelledby="project-title-${encodeURIComponent(p.id)}">
+    <a href="project.html?id=${encodeURIComponent(p.id)}" class="project-card-link" aria-label="Open ${esc(p.name)} details"></a>
     <img class="thumb" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" />
     <div class="body">
-      <h3>${esc(p.name)}</h3>
+      <h3 id="project-title-${encodeURIComponent(p.id)}">${esc(p.name)}</h3>
       <p>${esc(p.description)}</p>
       <div class="tech-tags">${techs}</div>
+      <div class="project-actions">
+        <a href="project.html?id=${encodeURIComponent(p.id)}" class="btn small project-action">View Details</a>
+        ${repoLink}
+      </div>
     </div>
-  </a>`;
+  </article>`;
 }
 
 // ================= Project Detail Page =================
@@ -476,7 +486,7 @@ function loadProjectDetail() {
 
   const projectLink =
     project.link && project.link !== "#"
-      ? `<a href="${esc(project.link)}" target="_blank" rel="noopener" class="btn">View on GitHub</a>`
+      ? `<a href="${esc(project.link)}" target="_blank" rel="noopener" class="btn">GitHub Repo</a>`
       : "";
 
   container.innerHTML = `
