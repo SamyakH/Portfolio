@@ -1,3 +1,9 @@
+function escAdmin(s) {
+  const d = document.createElement("div");
+  d.textContent = String(s);
+  return d.innerHTML;
+}
+
 // ================= Default Data =================
 const defaultData = {
   name: "Samyak Jain",
@@ -11,7 +17,7 @@ const defaultData = {
     { id: "s5", name: "CSS3", icon: "devicon-css3-plain colored", level: "Advanced" },
     { id: "s6", name: "JavaScript", icon: "devicon-javascript-plain colored", level: "Intermediate" },
     { id: "s7", name: "Git", icon: "devicon-git-plain colored", level: "Advanced" },
-    { id: "s8", name: "Excel", icon: "devicon-google-plain colored", level: "Advanced" }
+    { id: "s8", name: "Excel", icon: "devicon-microsoftsqlserver-plain colored", level: "Advanced" }
   ],
   projects: [
     {
@@ -94,13 +100,14 @@ function resetData() {
 }
 
 // ================= Section Navigation =================
-function showSection(sectionId) {
+function showSection(sectionId, clickedBtn) {
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  
-  document.getElementById(sectionId).classList.add('active');
-  event.target.classList.add('active');
-  
+
+  const section = document.getElementById(sectionId);
+  if (section) section.classList.add('active');
+  if (clickedBtn) clickedBtn.classList.add('active');
+
   if (sectionId === 'skills') renderSkillsList();
   if (sectionId === 'projects') renderProjectsList();
   if (sectionId === 'experience') renderExperienceList();
@@ -134,8 +141,8 @@ function renderSkillsList() {
       <div class="item-card">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <i class="${skill.icon}" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
-            <strong>${skill.name}</strong> - ${skill.level}
+            <i class="${escAdmin(skill.icon)}" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+            <strong>${escAdmin(skill.name)}</strong> - ${escAdmin(skill.level)}
           </div>
           <div class="item-actions">
             <button class="btn small" onclick="editSkill('${skill.id}')">
@@ -229,13 +236,13 @@ function renderProjectsList() {
   data.projects.forEach(project => {
     const techNames = project.tech.map(tid => {
       const skill = data.skills.find(s => s.id === tid);
-      return skill ? skill.name : '';
+      return skill ? escAdmin(skill.name) : '';
     }).join(', ');
     
-    container.innerHTML += `
+       container.innerHTML += `
       <div class="item-card">
-        <h4>${project.name}</h4>
-        <p style="color: var(--muted);">${project.description}</p>
+        <h4>${escAdmin(project.name)}</h4>
+        <p style="color: var(--muted);">${escAdmin(project.description)}</p>
         <p><strong>Technologies:</strong> ${techNames || 'None'}</p>
         <div class="item-actions">
           <button class="btn small" onclick="editProject('${project.id}')">
@@ -334,9 +341,9 @@ function renderExperienceList() {
   data.resume.experience.forEach(exp => {
     container.innerHTML += `
       <div class="item-card">
-        <h4>${exp.role} at ${exp.company}</h4>
-        <p style="color: var(--muted);">${exp.years}</p>
-        <p>${exp.description}</p>
+        <h4>${escAdmin(exp.role)} at ${escAdmin(exp.company)}</h4>
+        <p style="color: var(--muted);">${escAdmin(exp.years)}</p>
+        <p>${escAdmin(exp.description)}</p>
         <div class="item-actions">
           <button class="btn small" onclick="editExperience('${exp.id}')">
             <i class="fas fa-edit"></i> Edit
@@ -419,12 +426,12 @@ function renderEducationList() {
   const container = document.getElementById('educationList');
   container.innerHTML = '<h4 style="margin: 2rem 0 1rem; color: var(--accent);"><i class="fas fa-list"></i> Current Education</h4>';
   
-  data.resume.education.forEach(edu => {
+   data.resume.education.forEach(edu => {
     container.innerHTML += `
       <div class="item-card">
-        <h4>${edu.degree}</h4>
-        <p><strong>${edu.school}</strong> - ${edu.years}</p>
-        ${edu.description ? `<p>${edu.description}</p>` : ''}
+        <h4>${escAdmin(edu.degree)}</h4>
+        <p><strong>${escAdmin(edu.school)}</strong> - ${escAdmin(edu.years)}</p>
+        ${edu.description ? `<p>${escAdmin(edu.description)}</p>` : ''}
         <div class="item-actions">
           <button class="btn small" onclick="editEducation('${edu.id}')">
             <i class="fas fa-edit"></i> Edit

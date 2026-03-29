@@ -7,7 +7,7 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="initPageChrome();">
+<body onload="loadResume();">
   <header class="header">
     <h1>Resume</h1>
     <nav>
@@ -22,60 +22,8 @@
     </button>
   </header>
 
-  <main id="resume-page">
-    <div class="resume-header">
-      <h1>Samyak Jain</h1>
-      <h2>Web Developer</h2>
-      <div class="resume-contact">
-        <span>Meerut, India</span>
-        <span>samyakj1978@gmail.com</span>
-        <span>+91 9760170352</span>
-      </div>
-    </div>
-
-    <section class="resume-section">
-      <h3>Summary</h3>
-      <p>
-        Highly motivated and detail-oriented web developer with a passion for building
-        responsive and user-friendly applications. Experienced in both front-end and
-        back-end development, with a strong foundation in modern web technologies and frameworks.
-      </p>
-    </section>
-
-    <section class="resume-section">
-      <h3>Professional Experience</h3>
-      <div class="resume-item">
-        <h4>Data Analyst Intern <span class="company">  NoBroker </span></h4>
-        <div class="dates">June 2025 - July 2025</div>
-        <ul>
-          <li>During my internship at NoBroker, I worked on real datasets related to property trends, cleaning and analyzing data to support business insights. I also gained practical experience with SQL, Python, and visualization tools while creating reports and dashboards. The team provided a collaborative and learning-focused environment, giving me valuable exposure to how data analytics is applied in the real estate technology space.</li>
-        </ul>
-        <div class="resume-projects">
-          <strong>Related Skills:</strong>
-          <div class="resume-skills">
-            <span class="resume-skill">Python</span>
-            <span class="resume-skill">Excel</span>
-            <span class="resume-skill">MongoDB</span>
-            <span class="resume-skill">SQL</span>
-            <span class="resume-skill">Looker Studio</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="resume-section">
-      <h3>Education</h3>
-      <div class="resume-item">
-        <h4>Master of Science in Computer Science</h4>
-        <div class="company">SRM NCR</div>
-        <div class="dates">Currently Pursuing</div>
-      </div>
-      <div class="resume-item">
-        <h4>Bachelor of Science in Computer Science</h4>
-        <div class="company">Chaudhary Charan Singh University</div>
-        <div class="dates">Graduated 2023</div>
-      </div>
-    </section>
+<main id="resume-page">
+    <div id="resume-cards"></div>
   </main>
 
   <footer class="footer">© <span id="year"></span> Samyak Jain</footer>
