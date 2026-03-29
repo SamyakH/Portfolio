@@ -1,12 +1,9 @@
 // ================= Data =================
-// ⚠️ EDIT THIS SECTION WITH YOUR REAL INFORMATION ⚠️
-const data = {
-  name: "Samyak Jain",  // Your full name
-  title: "Web Developer",  // Your job title
-  summary: "Highly motivated and detail-oriented web developer with a passion for building responsive and user-friendly applications.",  // Your professional summary
-  
-  // ⚠️ ADD YOUR SKILLS HERE ⚠️
-  // Each skill needs: id, name, icon (from devicon), and level (Advanced/Intermediate/Beginner)
+// Default data - will be overridden by localStorage if available
+const defaultData = {
+  name: "Samyak Jain",
+  title: "Web Developer",
+  summary: "Highly motivated and detail-oriented web developer with a passion for building responsive and user-friendly applications.",
   skills: [
     { id: "s1", name: "Python", icon: "devicon-python-plain colored", level: "Advanced" },
     { id: "s2", name: "SQL", icon: "devicon-azuresqldatabase-plain colored", level: "Intermediate" },
@@ -17,24 +14,19 @@ const data = {
     { id: "s7", name: "Git", icon: "devicon-git-plain colored", level: "Advanced" },
     { id: "s8", name: "Excel", icon: "devicon-google-plain colored", level: "Advanced" }
   ],
-  
-  // ⚠️ ADD YOUR PROJECTS HERE ⚠️
-  // Each project needs: id, name, description, image, tech (array of skill ids), link, challenge, solution, relatedExperience
   projects: [
     {
       id: "p1",
       name: "Portfolio Website",
       description: "Personal portfolio built with HTML, CSS, and JavaScript.",
-      image: "https://placehold.co/800x500",  // Replace with your project screenshot
+      image: "https://placehold.co/800x500",
       tech: ["s4", "s5", "s6"],
       link: "https://github.com/SamR202/Portfolio",
       challenge: "Designing a personal site that looks professional and loads quickly.",
       solution: "Built a lightweight site using vanilla JS and CSS optimizations for speed.",
       relatedExperience: "Applied design principles and frontend performance best practices."
-    },
-    // ➕ ADD MORE PROJECTS HERE
+    }
   ],
-  
   resume: {
     experience: [
       { 
@@ -43,7 +35,6 @@ const data = {
         years: "June 2025 - July 2025", 
         description: "Worked on real datasets related to property trends, cleaning and analyzing data to support business insights. Gained practical experience with SQL, Python, and visualization tools while creating reports and dashboards." 
       }
-      // ➕ ADD MORE EXPERIENCE HERE
     ],
     education: [
       { 
@@ -61,6 +52,17 @@ const data = {
     ]
   }
 };
+
+// Load data from localStorage or use default
+function getPortfolioData() {
+  const saved = localStorage.getItem('portfolioData');
+  if (saved) {
+    return JSON.parse(saved);
+  }
+  return defaultData;
+}
+
+const data = getPortfolioData();
 
 // ================= Theme & Nav =================
 // ================= Theme & Nav =================

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Portfolio Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    .admin-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .admin-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .admin-tab { padding: 0.8rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .admin-tab:hover, .admin-tab.active { background: var(--accent); color: #fff; }
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--text); font-size: 1rem; }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .item-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; }
+    .item-card h4 { margin: 0 0 1rem; color: var(--accent); }
+    .item-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .btn-danger { background: #ef4444; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-success { background: #22c55e; }
+    .btn-success:hover { background: #16a34a; }
+    .save-indicator { position: fixed; top: 20px; right: 20px; padding: 1rem 1.5rem; background: #22c55e; color: #fff; border-radius: 8px; display: none; z-index: 1000; }
+    .save-indicator.show { display: block; animation: fadeInOut 2s ease; }
+    @keyframes fadeInOut { 0%, 100% { opacity: 0; } 20%, 80% { opacity: 1; } }
+    .preview-link { display: inline-block; margin-top: 1rem; color: var(--accent); }
+    .tech-checkboxes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .tech-checkbox { display: flex; align-items: center; gap: 0.3rem; padding: 0.4rem 0.8rem; background: var(--card); border: 1px solid var(--border); border-radius: 20px; cursor: pointer; }
+    .tech-checkbox input { margin: 0; }
+    .tech-checkbox.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="save-indicator" id="saveIndicator">
+    <i class="fas fa-check"></i> Saved successfully!
+  </div>
+
+  <header class="header">
+    <div class="logo">🛠️ Admin Panel</div>
+    <nav>
+      <a href="index.html">View Site</a>
+      <a href="admin.html" class="active">Edit Content</a>
+    </nav>
+  </header>
+
+  <main class="admin-container">
+    <h1 class="section-title">Edit Your Portfolio</h1>
+    <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">Make changes below and they will automatically save to your site!</p>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="showSection('personal')">👤 Personal Info</button>
+      <button class="admin-tab" onclick="showSection('skills')">💻 Skills</button>
+      <button class="admin-tab" onclick="showSection('projects')">📁 Projects</button>
+      <button class="admin-tab" onclick="showSection('experience')">💼 Experience</button>
+      <button class="admin-tab" onclick="showSection('education')">🎓 Education</button>
+    </div>
+
+    <!-- Personal Info Section -->
+    <section id="personal" class="admin-section active">
+      <div class="item-card">
+        <h4><i class="fas fa-user"></i> Personal Information</h4>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="editName" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Job Title</label>
+          <input type="text" id="editTitle" placeholder="e.g., Web Developer">
+        </div>
+        <div class="form-group">
+          <label>Professional Summary</label>
+          <textarea id="editSummary" placeholder="Write a brief summary about yourself..."></textarea>
+        </div>
+        <button class="btn" onclick="savePersonalInfo()">
+          <i class="fas fa-save"></i> Save Personal Info
+        </button>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="admin-section">
+      <div class="item-card">
+        <h4><i class="fas fa-plus"></i> Add New Skill</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Skill Name</label>
+            <input type="text" id="newSkillName" placeholder="e.g., Python">
+          </div>
+          <div class="form-group">
+            <label>Proficiency Level</label>
+            <select id="newSkillLevel">
+              <option value="Advanced">Advanced</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Beginner">Beginner</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Icon Class (from devicon.dev)</label>
+          <input type="text" id="newSkillIcon" placeholder="e.g., devicon-python-plain colored">
+          <small style="color: var(--muted);">Browse icons at <a href="https://devicon.dev" target="_blank">devicon.dev</a></small>
+        </div>
+        <button class="btn btn-success" onclick="addSkill()">
+          <i class="fas fa-plus"></i> Add Skill
+        </button>
+      </div>
+      <div id="skillsList"></div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="admin-section">
+      <div class="item-card">
+        <h4><i class="fas fa-plus"></i> Add New Project</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" id="newProjectName" placeholder="My Awesome Project">
+          </div>
+          <div class="form-group">
+            <label>GitHub Link</label>
+            <input type="text" id="newProjectLink" placeholder="https://github.com/username/repo">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="newProjectDesc" placeholder="Describe your project..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="text" id="newProjectImage" placeholder="https://example.com/image.png">
+        </div>
+        <div class="form-group">
+          <label>Technologies Used</label>
+          <div id="techCheckboxes" class="tech-checkboxes"></div>
+        </div>
+        <div class="form-group">
+          <label>Challenge</label>
+          <textarea id="newProjectChallenge" placeholder="What challenges did you face?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Solution</label>
+          <textarea id="newProjectSolution" placeholder="How did you solve them?"></textarea>
+        </div>
+        <button class="btn btn-success" onclick="addProject()">
+          <i class="fas fa-plus"></i> Add Project
+        </button>
+      </div>
+      <div id="projectsList"></div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="admin-section">
+      <div class="item-card">
+        <h4><i class="fas fa-plus"></i> Add Work Experience</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Job Role</label>
+            <input type="text" id="newExpRole" placeholder="e.g., Data Analyst Intern">
+          </div>
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" id="newExpCompany" placeholder="Company Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Duration</label>
+          <input type="text" id="newExpYears" placeholder="e.g., June 2025 - July 2025">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="newExpDesc" placeholder="Describe your responsibilities and achievements..."></textarea>
+        </div>
+        <button class="btn btn-success" onclick="addExperience()">
+          <i class="fas fa-plus"></i> Add Experience
+        </button>
+      </div>
+      <div id="experienceList"></div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="admin-section">
+      <div class="item-card">
+        <h4><i class="fas fa-plus"></i> Add Education</h4>
+        <div class="form-group">
+          <label>Degree</label>
+          <input type="text" id="newEduDegree" placeholder="e.g., Bachelor of Science in Computer Science">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>School/University</label>
+            <input type="text" id="newEduSchool" placeholder="University Name">
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <input type="text" id="newEduYears" placeholder="e.g., 2020-2024">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description (optional)</label>
+          <textarea id="newEduDesc" placeholder="Additional details..."></textarea>
+        </div>
+        <button class="btn btn-success" onclick="addEducation()">
+          <i class="fas fa-plus"></i> Add Education
+        </button>
+      </div>
+      <div id="educationList"></div>
+    </section>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="index.html" class="btn">
+        <i class="fas fa-eye"></i> View Your Portfolio
+      </a>
+      <button class="btn outline" onclick="exportData()" style="margin-left: 1rem;">
+        <i class="fas fa-download"></i> Export Data
+      </button>
+      <button class="btn btn-danger" onclick="resetData()" style="margin-left: 1rem;">
+        <i class="fas fa-undo"></i> Reset to Default
+      </button>
+    </div>
+  </main>
+
+  <footer class="footer">© <span id="year"></span> Samyak Jain - Admin Panel</footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>
