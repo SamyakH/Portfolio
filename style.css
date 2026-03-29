@@ -488,6 +488,35 @@ body.dark .header {
   border-radius: 10px;
   box-shadow: var(--shadow);
 }
+
+.resume-section-title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.resume-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.resume-card .company {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.resume-card .dates {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.resume-card p {
+  color: var(--text);
+  line-height: 1.6;
+}
 .resume-header { text-align: center; margin-bottom: 1.5rem; }
 .resume-header h1 { font-size: 2rem; margin-bottom: .2rem; color: var(--accent); }
 .resume-header h2 { font-size: 1.2rem; margin-bottom: .5rem; font-weight: 500; color: var(--muted); }
