@@ -1,73 +1,7 @@
-function escAdmin(s) {
-  const d = document.createElement("div");
-  d.textContent = String(s);
-  return d.innerHTML;
-}
-
-// ================= Default Data =================
-const defaultData = {
-  name: "Samyak Jain",
-  title: "Web Developer",
-  summary: "Highly motivated and detail-oriented web developer with a passion for building responsive and user-friendly applications.",
-  skills: [
-    { id: "s1", name: "Python", icon: "devicon-python-plain colored", level: "Advanced" },
-    { id: "s2", name: "SQL", icon: "devicon-azuresqldatabase-plain colored", level: "Intermediate" },
-    { id: "s3", name: "MongoDB", icon: "devicon-mongodb-plain colored", level: "Intermediate" },
-    { id: "s4", name: "HTML5", icon: "devicon-html5-plain colored", level: "Advanced" },
-    { id: "s5", name: "CSS3", icon: "devicon-css3-plain colored", level: "Advanced" },
-    { id: "s6", name: "JavaScript", icon: "devicon-javascript-plain colored", level: "Intermediate" },
-    { id: "s7", name: "Git", icon: "devicon-git-plain colored", level: "Advanced" },
-    { id: "s8", name: "Excel", icon: "devicon-microsoftsqlserver-plain colored", level: "Advanced" }
-  ],
-  projects: [
-    {
-      id: "p1",
-      name: "Portfolio Website",
-      description: "Personal portfolio built with HTML, CSS, and JavaScript.",
-      image: "https://placehold.co/800x500",
-      tech: ["s4", "s5", "s6"],
-      link: "https://github.com/SamR202/Portfolio",
-      challenge: "Designing a personal site that looks professional and loads quickly.",
-      solution: "Built a lightweight site using vanilla JS and CSS optimizations for speed.",
-      relatedExperience: "Applied design principles and frontend performance best practices."
-    }
-  ],
-  resume: {
-    experience: [
-      { 
-        id: "e1",
-        role: "Data Analyst Intern", 
-        company: "NoBroker", 
-        years: "June 2025 - July 2025", 
-        description: "Worked on real datasets related to property trends, cleaning and analyzing data to support business insights. Gained practical experience with SQL, Python, and visualization tools while creating reports and dashboards." 
-      }
-    ],
-    education: [
-      { 
-        id: "ed1",
-        degree: "Master of Science in Computer Science", 
-        school: "SRM NCR", 
-        years: "Currently Pursuing", 
-        description: "" 
-      },
-      { 
-        id: "ed2",
-        degree: "Bachelor of Science in Computer Science", 
-        school: "Chaudhary Charan Singh University", 
-        years: "Graduated 2023", 
-        description: "" 
-      }
-    ]
-  }
-};
-
 // ================= Data Management =================
 function loadData() {
-  const saved = localStorage.getItem('portfolioData');
-  if (saved) {
-    return JSON.parse(saved);
-  }
-  return JSON.parse(JSON.stringify(defaultData));
+  // Use getPortfolioData from script.js
+  return getPortfolioData();
 }
 
 function saveData(data) {
@@ -110,8 +44,6 @@ function showSection(sectionId, clickedBtn) {
 
   if (sectionId === 'skills') renderSkillsList();
   if (sectionId === 'projects') renderProjectsList();
-  if (sectionId === 'experience') renderExperienceList();
-  if (sectionId === 'education') renderEducationList();
 }
 
 // ================= Personal Info =================
@@ -141,8 +73,8 @@ function renderSkillsList() {
       <div class="item-card">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <i class="${escAdmin(skill.icon)}" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
-            <strong>${escAdmin(skill.name)}</strong> - ${escAdmin(skill.level)}
+            <i class="${esc(skill.icon)}" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+            <strong>${esc(skill.name)}</strong> - ${esc(skill.level)}
           </div>
           <div class="item-actions">
             <button class="btn small" onclick="editSkill('${skill.id}')">
@@ -236,13 +168,13 @@ function renderProjectsList() {
   data.projects.forEach(project => {
     const techNames = project.tech.map(tid => {
       const skill = data.skills.find(s => s.id === tid);
-      return skill ? escAdmin(skill.name) : '';
+      return skill ? esc(skill.name) : '';
     }).join(', ');
     
        container.innerHTML += `
       <div class="item-card">
-        <h4>${escAdmin(project.name)}</h4>
-        <p style="color: var(--muted);">${escAdmin(project.description)}</p>
+        <h4>${esc(project.name)}</h4>
+        <p style="color: var(--muted);">${esc(project.description)}</p>
         <p><strong>Technologies:</strong> ${techNames || 'None'}</p>
         <div class="item-actions">
           <button class="btn small" onclick="editProject('${project.id}')">
@@ -332,177 +264,6 @@ function deleteProject(id) {
   renderProjectsList();
 }
 
-// ================= Experience Management =================
-function renderExperienceList() {
-  const data = loadData();
-  const container = document.getElementById('experienceList');
-  container.innerHTML = '<h4 style="margin: 2rem 0 1rem; color: var(--accent);"><i class="fas fa-list"></i> Current Experience</h4>';
-  
-  data.resume.experience.forEach(exp => {
-    container.innerHTML += `
-      <div class="item-card">
-        <h4>${escAdmin(exp.role)} at ${escAdmin(exp.company)}</h4>
-        <p style="color: var(--muted);">${escAdmin(exp.years)}</p>
-        <p>${escAdmin(exp.description)}</p>
-        <div class="item-actions">
-          <button class="btn small" onclick="editExperience('${exp.id}')">
-            <i class="fas fa-edit"></i> Edit
-          </button>
-          <button class="btn btn-danger small" onclick="deleteExperience('${exp.id}')">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </div>
-      </div>
-    `;
-  });
-}
-
-function addExperience() {
-  const data = loadData();
-  const role = document.getElementById('newExpRole').value.trim();
-  const company = document.getElementById('newExpCompany').value.trim();
-  const years = document.getElementById('newExpYears').value.trim();
-  const desc = document.getElementById('newExpDesc').value.trim();
-  
-  if (!role || !company) {
-    alert('Please fill in role and company');
-    return;
-  }
-  
-  const newId = 'e' + (data.resume.experience.length + 1) + '_' + Date.now();
-  data.resume.experience.push({
-    id: newId,
-    role,
-    company,
-    years: years || 'N/A',
-    description: desc || ''
-  });
-  saveData(data);
-  
-  document.getElementById('newExpRole').value = '';
-  document.getElementById('newExpCompany').value = '';
-  document.getElementById('newExpYears').value = '';
-  document.getElementById('newExpDesc').value = '';
-  
-  renderExperienceList();
-}
-
-function editExperience(id) {
-  const data = loadData();
-  const exp = data.resume.experience.find(e => e.id === id);
-  if (!exp) return;
-  
-  const newRole = prompt('Job Role:', exp.role);
-  if (newRole === null) return;
-  
-  const newCompany = prompt('Company:', exp.company);
-  if (newCompany === null) return;
-  
-  const newYears = prompt('Duration:', exp.years);
-  if (newYears === null) return;
-  
-  const newDesc = prompt('Description:', exp.description);
-  if (newDesc === null) return;
-  
-  exp.role = newRole;
-  exp.company = newCompany;
-  exp.years = newYears;
-  exp.description = newDesc;
-  saveData(data);
-  renderExperienceList();
-}
-
-function deleteExperience(id) {
-  if (!confirm('Delete this experience?')) return;
-  const data = loadData();
-  data.resume.experience = data.resume.experience.filter(e => e.id !== id);
-  saveData(data);
-  renderExperienceList();
-}
-
-// ================= Education Management =================
-function renderEducationList() {
-  const data = loadData();
-  const container = document.getElementById('educationList');
-  container.innerHTML = '<h4 style="margin: 2rem 0 1rem; color: var(--accent);"><i class="fas fa-list"></i> Current Education</h4>';
-  
-   data.resume.education.forEach(edu => {
-    container.innerHTML += `
-      <div class="item-card">
-        <h4>${escAdmin(edu.degree)}</h4>
-        <p><strong>${escAdmin(edu.school)}</strong> - ${escAdmin(edu.years)}</p>
-        ${edu.description ? `<p>${escAdmin(edu.description)}</p>` : ''}
-        <div class="item-actions">
-          <button class="btn small" onclick="editEducation('${edu.id}')">
-            <i class="fas fa-edit"></i> Edit
-          </button>
-          <button class="btn btn-danger small" onclick="deleteEducation('${edu.id}')">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </div>
-      </div>
-    `;
-  });
-}
-
-function addEducation() {
-  const data = loadData();
-  const degree = document.getElementById('newEduDegree').value.trim();
-  const school = document.getElementById('newEduSchool').value.trim();
-  const years = document.getElementById('newEduYears').value.trim();
-  const desc = document.getElementById('newEduDesc').value.trim();
-  
-  if (!degree || !school) {
-    alert('Please fill in degree and school');
-    return;
-  }
-  
-  const newId = 'ed' + (data.resume.education.length + 1) + '_' + Date.now();
-  data.resume.education.push({
-    id: newId,
-    degree,
-    school,
-    years: years || 'N/A',
-    description: desc || ''
-  });
-  saveData(data);
-  
-  document.getElementById('newEduDegree').value = '';
-  document.getElementById('newEduSchool').value = '';
-  document.getElementById('newEduYears').value = '';
-  document.getElementById('newEduDesc').value = '';
-  
-  renderEducationList();
-}
-
-function editEducation(id) {
-  const data = loadData();
-  const edu = data.resume.education.find(e => e.id === id);
-  if (!edu) return;
-  
-  const newDegree = prompt('Degree:', edu.degree);
-  if (newDegree === null) return;
-  
-  const newSchool = prompt('School:', edu.school);
-  if (newSchool === null) return;
-  
-  const newYears = prompt('Year:', edu.years);
-  if (newYears === null) return;
-  
-  edu.degree = newDegree;
-  edu.school = newSchool;
-  edu.years = newYears;
-  saveData(data);
-  renderEducationList();
-}
-
-function deleteEducation(id) {
-  if (!confirm('Delete this education?')) return;
-  const data = loadData();
-  data.resume.education = data.resume.education.filter(e => e.id !== id);
-  saveData(data);
-  renderEducationList();
-}
 
 // ================= Initialize =================
 document.addEventListener('DOMContentLoaded', () => {

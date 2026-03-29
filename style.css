@@ -517,51 +517,6 @@ body.dark .header {
   color: var(--text);
   line-height: 1.6;
 }
-.resume-header { text-align: center; margin-bottom: 1.5rem; }
-.resume-header h1 { font-size: 2rem; margin-bottom: .2rem; color: var(--accent); }
-.resume-header h2 { font-size: 1.2rem; margin-bottom: .5rem; font-weight: 500; color: var(--muted); }
-.resume-contact {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  font-size: 0.95rem;
-  color: var(--text);
-}
-.resume-section {
-  margin-top: 1.5rem;
-}
-.resume-section h3 {
-  font-size: 1.3rem;
-  color: var(--accent);
-  margin-bottom: .8rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: .3rem;
-}
-.resume-item { margin-bottom: 1.2rem; }
-.resume-item h4 { margin: 0; font-size: 1.1rem; }
-.resume-item .company { font-weight: bold; color: var(--muted); }
-.resume-item .dates { font-size: 0.9rem; color: var(--muted); }
-.resume-item ul {
-  margin: .5rem 0 .5rem 1.2rem;
-  padding: 0;
-  list-style: disc;
-}
-.resume-projects { margin-top: .5rem; }
-.resume-projects strong { display: block; margin-bottom: .3rem; }
-.resume-skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .4rem;
-}
-.resume-skill {
-  padding: .3rem .6rem;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  font-size: .85rem;
-  background: var(--card);
-  box-shadow: var(--shadow);
-}
 
 /* ===== Skills Page ===== */
 #skills-list {

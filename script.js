@@ -1,66 +1,108 @@
+const PORTFOLIO_DATA_VERSION = "2026-03-29-v3";
+
 const defaultData = {
+  version: PORTFOLIO_DATA_VERSION,
   name: "Samyak Jain",
-  title: "Web Developer",
-  summary: "Highly motivated and detail-oriented web developer with a passion for building responsive and user-friendly applications.",
+  title: "MCA Candidate | Full-Stack Developer (MERN & Next.js) | Specialized in Browser Extensions & Automation",
+  summary:
+    "Passionate and motivated MCA student with a strong interest in web development and hands-on experience in HTML, CSS, JavaScript, and React. Eager to apply academic knowledge and contribute to real-world projects through internship opportunities.",
   skills: [
-    { id: "s1", name: "Python", icon: "devicon-python-plain colored", level: "Advanced" },
-    { id: "s2", name: "SQL", icon: "devicon-azuresqldatabase-plain colored", level: "Intermediate" },
-    { id: "s3", name: "MongoDB", icon: "devicon-mongodb-plain colored", level: "Intermediate" },
-    { id: "s4", name: "HTML5", icon: "devicon-html5-plain colored", level: "Advanced" },
-    { id: "s5", name: "CSS3", icon: "devicon-css3-plain colored", level: "Advanced" },
-    { id: "s6", name: "JavaScript", icon: "devicon-javascript-plain colored", level: "Intermediate" },
-    { id: "s7", name: "Git", icon: "devicon-git-plain colored", level: "Advanced" },
-    { id: "s8", name: "Excel", icon: "devicon-microsoftsqlserver-plain colored", level: "Advanced" }
+    { id: "s1", name: "HTML5", icon: "devicon-html5-plain colored", level: "Advanced" },
+    { id: "s2", name: "CSS3", icon: "devicon-css3-plain colored", level: "Advanced" },
+    { id: "s3", name: "JavaScript", icon: "devicon-javascript-plain colored", level: "Advanced" },
+    { id: "s4", name: "React", icon: "devicon-react-original colored", level: "Intermediate" },
+    { id: "s5", name: "TypeScript", icon: "devicon-typescript-plain colored", level: "Intermediate" },
+    { id: "s9", name: "Node.js", icon: "devicon-nodejs-plain colored", level: "Intermediate" }
   ],
   projects: [
     {
       id: "p1",
-      name: "Portfolio Website",
-      description: "Personal portfolio built with HTML, CSS, and JavaScript.",
-      image: "https://placehold.co/800x500",
-      tech: ["s4", "s5", "s6"],
-      link: "https://github.com/SamR202/Portfolio",
-      challenge: "Designing a personal site that looks professional and loads quickly.",
-      solution: "Built a lightweight site using vanilla JS and CSS optimizations for speed.",
-      relatedExperience: "Applied design principles and frontend performance best practices."
+      name: "Download Sorter Extension",
+      description:
+        "A browser extension that organizes downloads by creating folders based on the source domain and download date, then routes files into the right location automatically.",
+      image: "https://placehold.co/800x500/0f172a/f8fafc?text=Download+Sorter",
+      tech: ["s3", "s5", "s9"],
+      link: "#",
+      challenge:
+        "Ensuring downloads were grouped consistently without slowing down the workflow or creating confusing folder structures.",
+      solution:
+        "Designed a rule-based sorter that reads domain and timestamp data, builds folders dynamically, and redirects each download to the correct destination.",
+      relatedExperience:
+        "Strengthened problem-solving around automation, browser workflows, and practical JavaScript application design."
+    },
+    {
+      id: "p2",
+      name: "Auto Translate Browser Extension",
+      description:
+        "A Chrome extension that automatically translates foreign-language web pages, removes common translation blockers, enables text selection on restricted sites, and remembers processed domains for faster reuse.",
+      image: "https://placehold.co/800x500/1d4ed8/f8fafc?text=Auto+Translate",
+      tech: ["s1", "s2", "s3"],
+      link: "#",
+      challenge:
+        "Handling a range of website restrictions while keeping translation behavior reliable across repeat visits.",
+      solution:
+        "Added automated page handling, domain memory, and content interaction helpers so translation could run more smoothly on blocked or limited pages.",
+      relatedExperience:
+        "Built on frontend scripting skills and reinforced an interest in creating user-focused browser tooling."
+    },
+    {
+      id: "p3",
+      name: "Travel Agency Website",
+      description:
+        "A modern, secure, and high-performance travel agency website built with Next.js 16, React 19, and Supabase for luxury travel brands and tour operators.",
+      image: "https://placehold.co/800x500/14532d/f8fafc?text=Travel+Agency",
+      tech: ["s2", "s4", "s5", "s9"],
+      link: "#",
+      challenge:
+        "Creating a polished travel experience that balances performance, security, and a premium visual presentation.",
+      solution:
+        "Used a modern React-based stack with structured components and backend services to support responsive UX, scalable content, and faster rendering.",
+      relatedExperience:
+        "Reflects academic and hands-on growth in modern web development using React-based frameworks and full-stack tooling."
+    },
+    {
+      id: "p4",
+      name: "CashChecker",
+      description:
+        "A local JSON-backed finance tracker with recurring income and expense automation, built around a modular app structure with navigator, pages, services, and models.",
+      image: "https://placehold.co/800x500/7c2d12/f8fafc?text=CashChecker",
+      tech: ["s3", "s5", "s9"],
+      link: "#",
+      challenge:
+        "Keeping personal finance flows simple while supporting recurring transactions and a modular code structure.",
+      solution:
+        "Organized the app into clear modules and automated recurring records so the tracker stayed maintainable and easier to extend.",
+      relatedExperience:
+        "Demonstrates practical application architecture skills and an emphasis on maintainable, user-friendly tooling."
     }
-  ],
-  resume: {
-    experience: [
-      { 
-        id: "e1",
-        role: "Data Analyst Intern", 
-        company: "NoBroker", 
-        years: "June 2025 - July 2025", 
-        description: "Worked on real datasets related to property trends, cleaning and analyzing data to support business insights. Gained practical experience with SQL, Python, and visualization tools while creating reports and dashboards." 
-      }
-    ],
-    education: [
-      { 
-        id: "ed1",
-        degree: "Master of Science in Computer Science", 
-        school: "SRM NCR", 
-        years: "Currently Pursuing", 
-        description: "" 
-      },
-      { 
-        id: "ed2",
-        degree: "Bachelor of Science in Computer Science", 
-        school: "Chaudhary Charan Singh University", 
-        years: "Graduated 2023", 
-        description: "" 
-      }
-    ]
-  }
+  ]
 };
+
+function cloneDefaultData() {
+  return JSON.parse(JSON.stringify(defaultData));
+}
 
 // Load data from localStorage or use default
 function getPortfolioData() {
-  const saved = localStorage.getItem('portfolioData');
-  if (saved) {
-    return JSON.parse(saved);
+  const saved = localStorage.getItem("portfolioData");
+  if (!saved) return cloneDefaultData();
+
+  try {
+    const parsed = JSON.parse(saved);
+    if (!parsed || typeof parsed !== "object") return cloneDefaultData();
+    if (parsed.version !== PORTFOLIO_DATA_VERSION) {
+      localStorage.removeItem("portfolioData");
+      return cloneDefaultData();
+    }
+    if (!Array.isArray(parsed.skills) || !Array.isArray(parsed.projects)) {
+      return cloneDefaultData();
+    }
+    return parsed;
+  } catch {
+    console.warn("Invalid portfolioData in localStorage, resetting to defaults");
+    localStorage.removeItem("portfolioData");
+    return cloneDefaultData();
   }
-  return defaultData;
 }
 // ================= Theme & Nav =================
 function applySavedTheme() {
@@ -265,7 +307,6 @@ function observeAnimateables(root = document) {
     });
 }
 
-// ================= Scroll Animations =================
 function initScrollAnimations() {
   observeAnimateables(document);
 }
@@ -418,6 +459,9 @@ function loadProjectDetail() {
           <a href="projects.html" class="btn">Back to Projects</a>
         </div>
       </div>`;
+    if (typeof observeAnimateables === "function") {
+      observeAnimateables(container);
+    }
     return;
   }
 
@@ -429,6 +473,11 @@ function loadProjectDetail() {
         : "";
     })
     .join(" ");
+
+  const projectLink =
+    project.link && project.link !== "#"
+      ? `<a href="${esc(project.link)}" target="_blank" rel="noopener" class="btn">View on GitHub</a>`
+      : "";
 
   container.innerHTML = `
     <div class="card project-detail-card">
@@ -451,11 +500,14 @@ function loadProjectDetail() {
           <p>${esc(project.relatedExperience)} (<a href="resume.html" target="_blank" rel="noopener">View Resume</a>)</p>
         </div>
 
-        <a href="${esc(project.link)}" target="_blank" rel="noopener" class="btn">View on GitHub</a>
+        ${projectLink}
         <a href="projects.html" class="btn outline">Back to Projects</a>
       </div>
     </div>
   `;
+  if (typeof observeAnimateables === "function") {
+    observeAnimateables(container);
+  }
 }
 window.loadProjectDetail = loadProjectDetail;
 
@@ -500,57 +552,6 @@ function loadSkills() {
   }, 150);
 }
 
-function loadResume() {
-  // Reload data from localStorage to get latest changes
-  const currentData = getPortfolioData();
-
-  const container = document.getElementById("resume-cards");
-  if (!container) return;
-  container.innerHTML = "";
-
-  const resume = currentData.resume || { experience: [], education: [] };
-  const expList = Array.isArray(resume.experience) ? resume.experience : [];
-  const eduList = Array.isArray(resume.education) ? resume.education : [];
-
-  const hasExp = expList.length > 0;
-  const hasEdu = eduList.length > 0;
-
-  if (!hasExp && !hasEdu) {
-    container.innerHTML = `
-      <div class="card resume-card">
-        <div class="body">
-          <h3>No resume data yet</h3>
-          <p class="muted">Add experience and education in the admin panel to see them here.</p>
-        </div>
-      </div>`;
-    return;
-  }
-
-  if (hasExp) {
-    container.innerHTML += `<h3 class="resume-section-title">Experience</h3>`;
-    expList.forEach(exp => {
-      container.innerHTML += `
-        <div class="card resume-card">
-          <h4>${esc(exp.role)} <span class="company">• ${esc(exp.company)}</span></h4>
-          <div class="dates">${esc(exp.years)}</div>
-          <p>${esc(exp.description)}</p>
-        </div>`;
-    });
-  }
-
-  if (hasEdu) {
-    container.innerHTML += `<h3 class="resume-section-title">Education</h3>`;
-    eduList.forEach(ed => {
-      container.innerHTML += `
-        <div class="card resume-card">
-          <h4>${esc(ed.degree)}</h4>
-          <div class="company">${esc(ed.school)}</div>
-          <div class="dates">${esc(ed.years)}</div>
-          <p>${esc(ed.description)}</p>
-        </div>`;
-    });
-  }
-}
 // ================= Contact =================
 function initContactForm() {
   const form = document.getElementById("contact-form");
@@ -609,5 +610,4 @@ window.initPageChrome = initPageChrome;
 window.loadHome = loadHome;
 window.initProjectsPage = initProjectsPage;
 window.loadSkills = loadSkills;
-window.loadResume = loadResume;
 window.initContactForm = initContactForm;
