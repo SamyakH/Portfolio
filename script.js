@@ -82,6 +82,13 @@ function cloneDefaultData() {
   return JSON.parse(JSON.stringify(defaultData));
 }
 
+const resumeProjectPeriods = {
+  p1: "October 2025",
+  p2: "October 2025",
+  p3: "March 2026 - Present",
+  p4: "March 2026 - Present"
+};
+
 // Load data from localStorage or use default
 function getPortfolioData() {
   const saved = localStorage.getItem("portfolioData");
@@ -314,6 +321,10 @@ function initScrollAnimations() {
 document.addEventListener("DOMContentLoaded", () => {
   initPageChrome();
 
+  if (document.getElementById("resume-projects")) {
+    loadResumeProjects();
+  }
+
   // Only run skill bar observer when there are progress bars on page
   if (document.querySelector(".progress-bar")) {
     initSkills();
@@ -521,6 +532,35 @@ function loadProjectDetail() {
 }
 window.loadProjectDetail = loadProjectDetail;
 
+function loadResumeProjects() {
+  const container = document.getElementById("resume-projects");
+  if (!container) return;
+
+  const currentData = getPortfolioData();
+  container.innerHTML = "";
+
+  currentData.projects.forEach((project) => {
+    const period = resumeProjectPeriods[project.id] || "";
+    const repoLink =
+      project.link && project.link !== "#"
+        ? `<a href="${esc(project.link)}" target="_blank" rel="noopener" class="resume-project-link">GitHub Repo</a>`
+        : "";
+
+    container.innerHTML += `
+      <div class="card resume-card compact">
+        <h4>${esc(project.name)}</h4>
+        <div class="dates">${esc(period)}</div>
+        <p>${esc(project.description)}</p>
+        ${repoLink}
+      </div>
+    `;
+  });
+
+  if (typeof observeAnimateables === "function") {
+    observeAnimateables(container);
+  }
+}
+
 // ================= Skills Page =================
 function loadSkills() {
   // Reload data from localStorage to get latest changes
@@ -621,5 +661,6 @@ function typeWriter(id, text, speed) {
 window.initPageChrome = initPageChrome;
 window.loadHome = loadHome;
 window.initProjectsPage = initProjectsPage;
+window.loadResumeProjects = loadResumeProjects;
 window.loadSkills = loadSkills;
 window.initContactForm = initContactForm;
