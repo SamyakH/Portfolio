@@ -1,4 +1,4 @@
-const PORTFOLIO_DATA_VERSION = "2026-03-29-v3";
+const PORTFOLIO_DATA_VERSION = "2026-03-29-v4";
 
 const defaultData = {
   version: PORTFOLIO_DATA_VERSION,
@@ -7,12 +7,12 @@ const defaultData = {
   summary:
     "Passionate and motivated MCA student with a strong interest in web development and hands-on experience in HTML, CSS, JavaScript, and React. Eager to apply academic knowledge and contribute to real-world projects through internship opportunities.",
   skills: [
-    { id: "s1", name: "HTML5", icon: "devicon-html5-plain colored", level: "Advanced" },
-    { id: "s2", name: "CSS3", icon: "devicon-css3-plain colored", level: "Advanced" },
-    { id: "s3", name: "JavaScript", icon: "devicon-javascript-plain colored", level: "Advanced" },
-    { id: "s4", name: "React", icon: "devicon-react-original colored", level: "Intermediate" },
-    { id: "s5", name: "TypeScript", icon: "devicon-typescript-plain colored", level: "Intermediate" },
-    { id: "s9", name: "Node.js", icon: "devicon-nodejs-plain colored", level: "Intermediate" }
+    { id: "s1", name: "HTML5", icon: "fa-brands fa-html5", level: "Advanced" },
+    { id: "s2", name: "CSS3", icon: "fa-brands fa-css3-alt", level: "Advanced" },
+    { id: "s3", name: "JavaScript", icon: "fa-brands fa-js", level: "Advanced" },
+    { id: "s4", name: "React", icon: "fa-brands fa-react", level: "Intermediate" },
+    { id: "s5", name: "TypeScript", icon: "fa-solid fa-code", level: "Intermediate" },
+    { id: "s9", name: "Node.js", icon: "fa-brands fa-node-js", level: "Intermediate" }
   ],
   projects: [
     {
@@ -530,7 +530,9 @@ function loadSkills() {
     list.innerHTML += `
       <a href="projects.html?skill=${encodeURIComponent(s.id)}" class="card skill-card" aria-label="View projects with ${esc(s.name)}">
         <div class="body">
-          <i class="${esc(s.icon)} skill-icon"></i>
+          <div class="skill-icon" aria-hidden="true">
+            <i class="${esc(s.icon)}"></i>
+          </div>
           <h3>${esc(s.name)}</h3>
           <p class="muted">${esc(s.level)} • ${count} project${count !== 1 ? "s" : ""}</p>
           <div class="progress">
